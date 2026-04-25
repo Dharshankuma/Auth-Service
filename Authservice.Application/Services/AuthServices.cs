@@ -14,12 +14,14 @@ namespace Authservice.Application.Services
         private readonly IUserRepository _repo;
         private readonly IPasswordService _pass;
         private readonly IDateTimeProvider _date;
+        private readonly ITokenProvider _token;
 
-        public AuthServices(IUserRepository repo, IPasswordService pass,IDateTimeProvider date)
+        public AuthServices(IUserRepository repo, IPasswordService pass, IDateTimeProvider date, ITokenProvider token)
         {
             _repo = repo;
             _pass = pass;
             _date = date;
+            _token = token;
         }
 
         public async Task<string> DoRegisterUser(RegisterUserDTO objdto)
@@ -46,6 +48,24 @@ namespace Authservice.Application.Services
             await _repo.DoAddUser(user);
 
             return "User Registerd Successfully";
+        }
+
+        public async Task<string> Login(LoginDTO objdto)
+        {
+            var user = await _repo.DoGetEmailByAsync(objdto.emailId);
+            if(user == null)
+            {
+                throw new Exception("Invalid email or password");
+            }
+            var isPasswordValid = await _pass.VerifyPassword(objdto.password, user.Password);
+            if (!isPasswordValid)
+            {
+                throw new Exception("Invalid email or password");
+            }
+
+            var token = await _token.GenerateToken(user);
+
+            return token;
         }
     }
 }

@@ -10,5 +10,6 @@ namespace Authservice.Application.Interface
     public interface IAuthServices
     {
         Task<string> DoRegisterUser(RegisterUserDTO objdto);
+        Task<string> Login(LoginDTO objdto);
     }
 }

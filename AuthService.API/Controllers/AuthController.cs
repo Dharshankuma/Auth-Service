@@ -15,7 +15,8 @@ namespace Auth_Service.Controllers
             _authService = authService;
         }
 
-        [HttpPost("Register")]
+        [HttpPost]
+        [Route("Register")]
         public async Task<IActionResult> Register(RegisterUserDTO objdto)
         {
             try
@@ -27,6 +28,22 @@ namespace Auth_Service.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpPost]
+        [Route("Login")]
+        public async Task<IActionResult> Login(LoginDTO objdto)
+        {
+            try
+            {
+                var result = await _authService.Login(objdto);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
     }
 }
