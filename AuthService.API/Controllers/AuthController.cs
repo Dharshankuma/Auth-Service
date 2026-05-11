@@ -19,30 +19,16 @@ namespace Auth_Service.Controllers
         [Route("Register")]
         public async Task<IActionResult> Register(RegisterUserDTO objdto)
         {
-            try
-            {
-                var result = await _authService.DoRegisterUser(objdto);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var result = await _authService.DoRegisterUser(objdto);
+            return Ok(result);
         }
 
         [HttpPost]
         [Route("Login")]
         public async Task<IActionResult> Login(LoginDTO objdto)
         {
-            try
-            {
-                var result = await _authService.Login(objdto);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var result = await _authService.Login(objdto);
+            return Ok(result);
 
         }
     }
