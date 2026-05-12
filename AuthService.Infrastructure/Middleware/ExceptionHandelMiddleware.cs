@@ -84,7 +84,7 @@ namespace AuthService.Infrastructure.Middleware
 
                 IncorrectPasswordException incorrectPasswordException => new ExceptionDetails(Status: StatusCodes.Status400BadRequest,
                 Type: nameof(IncorrectPasswordException), Detail: incorrectPasswordException.Message,
-                Title: "Incorrect Password", errors: incorrectPasswordException.Er),
+                Title: "Incorrect Password", errors: null),
 
                 LoginAlreadyTakenException loginAlreadyTakenException => new ExceptionDetails(Status: StatusCodes.Status400BadRequest,
                 Type: (nameof(LoginAlreadyTakenException)), Detail: loginAlreadyTakenException.Message,

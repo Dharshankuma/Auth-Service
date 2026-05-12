@@ -63,8 +63,8 @@ namespace Authservice.Application.Services
         }
 
         public async Task<string> Login(LoginDTO objdto)
-        {
-            _logger.LogInformation("Login attempt for email: {Email}", objdto.emailId);)
+        { 
+            _logger.LogInformation("Login attempt for email: {Email}", objdto.emailId);
             //validate input
             AuthValidator.ValidateLoginDTO(objdto);
             var user = await _repo.DoGetEmailByAsync(objdto.emailId);
@@ -80,7 +80,7 @@ namespace Authservice.Application.Services
 
             var token = await _token.GenerateToken(user);
 
-            _logger.LogInformation("Login successful for email: {Email}, UserId: {UserId}", objdto.emailId, user.Identifier);)
+            _logger.LogInformation("Login successful for email: {Email}, UserId: {UserId}", objdto.emailId, user.Identifier);
             return token;
         }
     }
